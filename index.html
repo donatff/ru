@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G9P7XSSXNM"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-G9P7XSSXNM');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Донат Free Fire</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin:0;
+    font-family:'Roboto', sans-serif;
+    background:url("backgroundphoto2.jpg") no-repeat center/cover;
+    color:#fff;
+    min-height:100vh;
+    overflow-x:hidden;
+    padding-top: 20px;
+}
+
+/* частицы */
+.particle{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    animation: float 10s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-900px);opacity:0;}
+}
+
+/* блоки */
+.block{
+    max-width:450px;
+    margin:15px auto;
+    padding:15px 20px;
+    border-radius:18px;
+    background:rgba(0,0,0,.75);
+    box-shadow:0 0 25px rgba(0,0,0,.7);
+    text-align:center;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.title{
+    font-size:24px;
+    font-weight:700;
+    background:linear-gradient(45deg,#ffcc00,#ff5500);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    padding: 5px 0;
+}
+
+.author{
+    font-size:15px;
+    color:#ffd700;
+}
+
+.author a{
+    color:#ffd700;
+    text-decoration:none;
+    font-weight:700;
+    transition: color 0.3s;
+}
+
+.author a:hover{
+    color:#ff5500;
+}
+
+/* Instagram блок */
+.instagram-block {
+    margin: 15px auto;
+    padding: 15px;
+    background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+    border-radius: 18px;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(225, 48, 108, 0.5);
+}
+
+.instagram-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 12px;
+    transition: transform 0.3s;
+}
+
+.instagram-link:hover {
+    transform: scale(1.05);
+}
+
+.instagram-icon {
+    font-size: 28px;
+}
+
+.instagram-text {
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* кнопка */
+.btn{
+    margin:25px auto;
+    display:block;
+    padding:17px 65px;
+    font-size:22px;
+    font-weight:700;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ffcc00,#ff5500);
+    color:#000;
+    box-shadow:0 0 25px #ffcc00,0 0 45px #ff5500;
+    transition:.3s;
+    letter-spacing: 1px;
+}
+
+.btn:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 30px #ffcc00,0 0 55px #ff5500;
+}
+
+.btn:active{
+    transform:scale(.95);
+}
+
+/* правила */
+.rules{
+    text-align:left;
+    font-size:15px;
+    line-height:1.6;
+}
+
+.rules h2{
+    text-align:center;
+    color:#ffd700;
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+
+.rules ul {
+    padding-left: 20px;
+}
+
+.rules li {
+    margin-bottom: 10px;
+    padding-left: 5px;
+}
+
+.rules li i {
+    margin-right: 8px;
+    color: #ffcc00;
+}
+
+/* адаптив */
+@media(max-width:480px){
+    .btn{
+        width:90%;
+        padding: 15px;
+        font-size: 20px;
+    }
+    .block{
+        margin:12px;
+        max-width: 95%;
+    }
+    .instagram-block {
+        max-width: 95%;
+        margin: 12px auto;
+    }
+    .title {
+        font-size: 22px;
+    }
+}
+
+/* анимация кнопки */
+@keyframes pulse {
+    0% { box-shadow: 0 0 25px #ffcc00, 0 0 45px #ff5500; }
+    50% { box-shadow: 0 0 30px #ffcc00, 0 0 50px #ff5500; }
+    100% { box-shadow: 0 0 25px #ffcc00, 0 0 45px #ff5500; }
+}
+
+.btn {
+    animation: pulse 2s infinite;
+}
+
+/* стиль для значков */
+.fa-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+}
+</style>
+</head>
+
+<body>
+<button id="historyBtn">📜 История пополнений</button>
+
+<!-- Модальное окно для истории -->
+<div id="historyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+    background: rgba(0,0,0,0.8); color:white; overflow:auto; padding:50px;">
+    <h2>История пополнений</h2>
+    <div id="historyContent"></div>
+    <button onclick="closeHistory()">Закрыть</button>
+</div>
+
+<script>
+    function addPaymentHistory(username, item, amount, date) {
+    let history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
+    history.push({ username, item, amount, date });
+    localStorage.setItem('paymentHistory', JSON.stringify(history));
+}
+
+// В функции sendOrder() после подтверждения оплаты:
+const username = localStorage.getItem("username");
+const selectedItem = localStorage.getItem("selectedItem");
+const amount = 95; // сумма покупки
+const date = new Date().toLocaleString();
+
+addPaymentHistory(username, selectedItem, amount, date);
+
+    // Открытие истории
+document.getElementById('historyBtn').addEventListener('click', function() {
+    const username = localStorage.getItem('username'); // текущий пользователь
+    const history = JSON.parse(localStorage.getItem('paymentHistory') || '[]')
+                        .filter(entry => entry.username === username);
+
+    const contentDiv = document.getElementById('historyContent');
+    if(history.length === 0){
+        contentDiv.innerHTML = "<p>История пуста</p>";
+    } else {
+        contentDiv.innerHTML = history.map(entry => 
+            `<p>${entry.date} — ${entry.item} — ${entry.amount} сом</p>`
+        ).join('');
+    }
+
+    document.getElementById('historyModal').style.display = 'block';
+});
+
+// Закрытие истории
+function closeHistory(){
+    document.getElementById('historyModal').style.display = 'none';
+}
+
+// Создание частиц
+for(let i=0;i<30;i++){
+    let p=document.createElement("div");
+    p.className="particle";
+    let size=Math.random()*6+4;
+    p.style.width=size+"px";
+    p.style.height=size+"px";
+    p.style.left=Math.random()*100+"%";
+    p.style.top=Math.random()*100+"%";
+    p.style.background=`rgba(255,200,50,${Math.random()})`;
+    p.style.animationDuration=(Math.random()*6+6)+"s";
+    document.body.appendChild(p);
+}
+</script>
+
+<div class="block author">
+    <strong>Поддержка:</strong>  <br>
+    <a href="https://t.me/shurik_freefire" target="_blank">
+        <i class="fab fa-telegram"></i> @shurir_freefire
+        
+    </a>
+</div>
+
+<div class="block title">
+    <i class="fas fa-gem"></i> Купить донат и алмазы Garena Free Fire <i class="fas fa-gem"></i>
+</div>
+
+<!-- Instagram блок -->
+<div class="instagram-block">
+    <a href="https://instagram.com/freefire.donatekg" target="_blank" class="instagram-link">
+        <i class="fab fa-instagram instagram-icon"></i>
+        <span class="instagram-text">freefire.donatekg</span>
+    </a>
+</div>
+
+<button class="btn" onclick="goNext()">
+    <i class="fas fa-arrow-right"></i> Продолжить <i class="fas fa-arrow-right"></i>
+</button>
+
+<div class="block rules">
+<h2><i class="fas fa-exclamation-triangle"></i> Важно перед покупкой</h2>
+<ul>
+<li><i class="fas fa-id-card"></i> Вводите ID внимательно</li>
+<li><i class="fas fa-comment-dollar"></i> При оплате через M-Bank обязательно напишите свой ID в сообщении, иначе мы не сможем правильно привязать платеж к заказу.</li>
+<li><i class="fas fa-ban"></i> Мы не несем ответственности за неверный ID</li>
+<li><i class="fas fa-undo"></i> Возврат возможен только при нашей ошибке</li>
+<li><i class="fas fa-box"></i> Проверяйте выбранный товар</li>
+<li><i class="fas fa-clock"></i> Обработка может происходить от нескольких минут до пары часов</li>
+<li><i class="fas fa-headset"></i> По всем вопросам обращайтесь в Telegram или Instagram</li>
+</ul>
+</div>
+
+<script>
+function goNext(){
+    window.location.href="registration.html";
+}
+</script>
+
+</body>
+</html>
+
