@@ -55,7 +55,7 @@ button{
     cursor:pointer;
     margin:10px;
     font-weight:bold;
-    transition: 0.3s;
+    transition:0.3s;
 }
 button.pay{
     background:linear-gradient(45deg,#ffcc00,#ff5500);
@@ -75,6 +75,10 @@ button.pay.active {
 }
 button.back{
     background:linear-gradient(45deg,#00BFFF,#007BFF);
+    color:white;
+}
+button.historyBtn{
+    background: linear-gradient(45deg,#FF69B4,#FF1493);
     color:white;
 }
 .loader {
@@ -97,18 +101,27 @@ button.back{
     color:#FFD700;
     display:none;
 }
+/* Модальное окно */
+#historyModal{
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.85);
+    color:white;
+    overflow:auto;
+    padding:50px;
+}
+#historyModal h2{
+    margin-bottom:20px;
+}
+#historyModal button{
+    margin-top:20px;
+    padding:10px 20px;
+}
 </style>
 </head>
 <body>
-<button id="historyBtn">📜 История пополнений</button>
-
-<!-- Модальное окно для истории -->
-<div id="historyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
-    background: rgba(0,0,0,0.8); color:white; overflow:auto; padding:50px;">
-    <h2>История пополнений</h2>
-    <div id="historyContent"></div>
-    <button onclick="closeHistory()">Закрыть</button>
-</div>
 
 <div class="container">
     <h2>💳 Оплата заказа</h2>
@@ -120,6 +133,9 @@ button.back{
     </div>
 
     <img src="QRkode.jpg" alt="QR-код" class="qr">
+
+    <button class="historyBtn" id="historyBtn">📜 История пополнений</button>
+
     <p>Оплатите заказ и подтвердите ниже</p>
 
     <label>
@@ -128,31 +144,40 @@ button.back{
 
     <br><br>
 
-    <button class="pay" id="payBtn" disabled onclick="sendOrder()">Я оплатил</button>
+    <button class="pay" id="payBtn" disabled>Я оплатил</button>
     <button class="back" onclick="goBack()">← Назад</button>
 
     <div class="loader" id="loader"></div>
     <div class="status-text" id="statusText">⏳ Отправка заявки...</div>
 </div>
 
+<!-- Модальное окно истории -->
+<div id="historyModal">
+    <h2>История пополнений</h2>
+    <div id="historyContent"></div>
+    <button onclick="closeHistory()">Закрыть</button>
+</div>
+
 <script>
-    function addPaymentHistory(username, item, amount, date) {
+// АКТИВАЦИЯ КНОПКИ
+const agreeCheck = document.getElementById("agreeCheck");
+const payBtn = document.getElementById("payBtn");
+
+agreeCheck.addEventListener("change", function(){
+    payBtn.disabled = !this.checked;
+    if(this.checked) payBtn.classList.add("active");
+    else payBtn.classList.remove("active");
+});
+
+// ДОБАВЛЕНИЕ И ОТКРЫТИЕ ИСТОРИИ
+function addPaymentHistory(username, item, amount, date){
     let history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
-    history.push({ username, item, amount, date });
+    history.push({username, item, amount, date});
     localStorage.setItem('paymentHistory', JSON.stringify(history));
 }
 
-// В функции sendOrder() после подтверждения оплаты:
-const username = localStorage.getItem("username");
-const selectedItem = localStorage.getItem("selectedItem");
-const amount = 95; // сумма покупки
-const date = new Date().toLocaleString();
-
-addPaymentHistory(username, selectedItem, amount, date);
-
-    // Открытие истории
-document.getElementById('historyBtn').addEventListener('click', function() {
-    const username = localStorage.getItem('username'); // текущий пользователь
+document.getElementById('historyBtn').addEventListener('click', function(){
+    const username = localStorage.getItem('username');
     const history = JSON.parse(localStorage.getItem('paymentHistory') || '[]')
                         .filter(entry => entry.username === username);
 
@@ -160,7 +185,7 @@ document.getElementById('historyBtn').addEventListener('click', function() {
     if(history.length === 0){
         contentDiv.innerHTML = "<p>История пуста</p>";
     } else {
-        contentDiv.innerHTML = history.map(entry => 
+        contentDiv.innerHTML = history.map(entry =>
             `<p>${entry.date} — ${entry.item} — ${entry.amount} сом</p>`
         ).join('');
     }
@@ -168,17 +193,12 @@ document.getElementById('historyBtn').addEventListener('click', function() {
     document.getElementById('historyModal').style.display = 'block';
 });
 
-// Закрытие истории
 function closeHistory(){
     document.getElementById('historyModal').style.display = 'none';
 }
 
-document.getElementById("agreeCheck").addEventListener("change", function(){
-    const btn = document.getElementById("payBtn");
-    btn.disabled = !this.checked;
-    if(this.checked) btn.classList.add("active");
-    else btn.classList.remove("active");
-});
+// ОТПРАВКА ЗАКАЗА
+payBtn.addEventListener('click', sendOrder);
 
 function sendOrder(){
     const playerID = localStorage.getItem("playerID");
@@ -191,16 +211,16 @@ function sendOrder(){
         return;
     }
 
-    const btn = document.getElementById("payBtn");
     const loader = document.getElementById("loader");
     const statusText = document.getElementById("statusText");
 
     loader.style.display = "block";
     statusText.style.display = "block";
-    btn.disabled = true;
+    payBtn.disabled = true;
 
-    const TOKEN = "8277453712:AAHz4g1w9MDHVn2Nvx-G4VqWFWfH99nMWfc"; // твой токен
-    const CHAT_ID = "426389082"; // твой ID чата
+    // 🔴 Вставь свой токен и ID чата
+    const TOKEN = "8277453712:AAHz4g1w9MDHVn2Nvx-G4VqWFWfH99nMWfc";
+    const CHAT_ID = "426389082";
 
     const orderId = Date.now();
 
@@ -233,9 +253,18 @@ function sendOrder(){
     })
     .then(()=> {
         statusText.innerText = "✅ Заявка отправлена! Ожидайте подтверждения.";
+        loader.style.display = "none";
+
+        // Добавляем запись в историю
+        const date = new Date().toLocaleString();
+        const amount = 95; // можно брать реальную цену
+        addPaymentHistory(username, selectedItem, amount, date);
+
     })
     .catch(()=> {
         statusText.innerText = "❌ Ошибка отправки. Попробуйте позже.";
+        loader.style.display = "none";
+        payBtn.disabled = false;
     });
 }
 
@@ -243,6 +272,5 @@ function goBack(){
     window.location.href = "shop.html";
 }
 </script>
-
 </body>
 </html>
