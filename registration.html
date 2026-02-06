@@ -116,20 +116,6 @@ button:hover{
 </div>
 
 <script>
-    function addPaymentHistory(username, item, amount, date) {
-    let history = JSON.parse(localStorage.getItem('paymentHistory') || '[]');
-    history.push({ username, item, amount, date });
-    localStorage.setItem('paymentHistory', JSON.stringify(history));
-}
-
-// В функции sendOrder() после подтверждения оплаты:
-const username = localStorage.getItem("username");
-const selectedItem = localStorage.getItem("selectedItem");
-const amount = 95; // сумма покупки
-const date = new Date().toLocaleString();
-
-addPaymentHistory(username, selectedItem, amount, date);
-
     // Открытие истории
 document.getElementById('historyBtn').addEventListener('click', function() {
     const username = localStorage.getItem('username'); // текущий пользователь
